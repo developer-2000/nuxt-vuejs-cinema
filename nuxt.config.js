@@ -1,9 +1,7 @@
-const conf = require('./package.json')
+const conf = require('./package.json');
 
 export default {
   mode: 'universal',
-
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: conf.name,
     htmlAttrs: {
@@ -16,33 +14,21 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      {
+        rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'
+      },
+    ],
+    script: []
+  },
+  loading: { color: 'blue' },
+  css: [],
+  plugins: [],
+  components: true,
+  buildModules: [],
+  modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios'],
+  build: {
+    plugins: [
     ]
   },
 
-  /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: 'blue' },
-
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
-
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-  ],
-
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
-
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-  ],
-
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['bootstrap-vue/nuxt'],
-
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  }
 }
