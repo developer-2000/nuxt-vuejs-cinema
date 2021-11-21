@@ -1,69 +1,81 @@
 # cinema
 
-## Build Setup
+## quest
+Create a web application for cinema (Vue.js OR React.js OR Javascript).
+Application should provide next functionality for users: get list of all movies, see all sessions at the cinema, get movie info, find movie by name or/and genres, book ticket on certain movie's session.
+Feel free to implement your own UI design.
 
-```bash
-# install dependencies
-$ npm install
+API
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+API domain: https://cinema-api-test.y-media.io/v1
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+Get all movies :
 
-# generate static project
-$ npm run generate
-```
+HTTP GET 
+/movies 
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+Search for movie:
 
-## Special Directories
+HTTP GET 
+/movies?movie_id={id}&name={name}&genres={genres}
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
-
-### `assets`
-
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+All search parameters are optional
+Movie genres :
+ACTION: 0
+ADVENTURES: 1
+COMEDY: 2
+DRAMA: 3
+HORROR: 4
+WESTERNS: 5
 
 
-### `pages`
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+Get movies sessions:
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+HTTP GET 
+/movieShows 
+OR
+/movieShows?movie_id={id}
 
-### `plugins`
+Book ticket:
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+    Check for free places:
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+HTTP GET 
+    /showPlaces?movie_id={id}&daytime={daytime}&showdate={showdate}
+    /showPlaces?movie_id=61&daytime=10:50&showdate=2021-06-27
 
-### `static`
+Book place:
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
+HTTP POST
+/bookPlace
+{
+  "movie_id": {id},
+  "row": {int},
+  "seat": {int},
+  "showdate": {string},
+  "daytime": {string}
+}
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
+Request:
+{
+  "movie_id": 61,
+  "row": 9,
+  "seat": 8,
+  "showdate": "2021-06-27",
+  "daytime": "10:50"
+}
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+Response:
+{
+    "error_code": 0,
+    "error_message": "no errors",
+    "data": {
+        "movie_id": "61",
+        "row": "9",
+        "seat": "8",
+        "showdate": "2021-06-27",
+        "daytime": "10:50",
+        "ticketkey": "2a8cfbd5a4945f52e92c6b969f440192"
+    }
+}
